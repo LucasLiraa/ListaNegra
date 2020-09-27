@@ -33,6 +33,10 @@ namespace Backend.Models
                 entity.HasKey(e => e.IdListaNegra)
                     .HasName("PRIMARY");
 
+                entity.Property(e => e.DsLocal)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.Property(e => e.DsMotivo)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");

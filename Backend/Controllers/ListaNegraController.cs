@@ -31,6 +31,44 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpDelete("{Id}")]
+        public ActionResult<Models.Response.ListaNegraResponse> Deletar (int Id)
+        {
+            try
+            {
+                Models.TbListaNegra ln = business.Deletar(Id);
+                Models.Response.ListaNegraResponse resp = conversor.ParaResponse(ln);
+                return resp;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(
+                    new Models.Response.ErroResponse(404, ex.Message)
+                );
+
+            }
+        }
+
+        [HttpPut("{Id}")]
+        public ActionResult<Models.Response.ListaNegraResponse> Alterar (int Id, Models.Request.ListaNegraRequest request)
+        {
+            try
+            {
+                Models.TbListaNegra ln = conversor.ParaTabela(request);
+                business.Alterar(Id, ln);
+
+                Models.Response.ListaNegraResponse resp = conversor.ParaResponse(ln);
+                return resp;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(
+                    new Models.Response.ErroResponse(404, ex.Message)
+                );
+
+            }
+        }
+
         [HttpGet]
         public ActionResult<List<Models.Response.ListaNegraResponse>> Listar()
         {
